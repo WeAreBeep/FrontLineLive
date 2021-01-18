@@ -1,4 +1,4 @@
-name: Build and Release
+name: CICD
 
 # Controls when the action will run. 
 on:
