@@ -44,4 +44,4 @@ jobs:
         with:
           file: /Dockerfile
           push: true
-          tags: frontlinesiba.azurecr.io/web
+          tags: frontlineacr.azurecr.io/web
