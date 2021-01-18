@@ -44,4 +44,4 @@ jobs:
         with:
           file: /Dockerfile
           push: true
-          tags: frontlinesiba.azurecr.io/web:${{ GITHUB_RUN_NUMBER }}
+          tags: frontlinesiba.azurecr.io/web
