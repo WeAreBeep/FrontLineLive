@@ -70,3 +70,11 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+
+  promote:
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    environment: Development # update to Live
+    
+    steps:
+      - run: echo "Implement slot swap"
