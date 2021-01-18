@@ -52,16 +52,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Azure Login
-        uses: Azure/login@v1.1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - run: |
-          az group list -o table
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+
+      - name:  Setup Terraform Credentials
+        run: |
+          echo "${{ secrets.CLIENT_ID }}"
+          export ARM_CLIENT_ID="${{ secrets.CLIENT_ID }}"
+          export ARM_CLIENT_SECRET="${{ secrets.CLIENT_SECRET }}"
+          export ARM_TENANT_ID="${{ secrets.TENANT_ID }}"
 
       - name: Terraform Init
         run: terraform init
