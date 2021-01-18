@@ -9,6 +9,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  ARM_CLIENT_ID: "${{ secrets.CLIENT_ID }}"
+  ARM_CLIENT_SECRET: "${{ secrets.CLIENT_SECRET }}"
+  ARM_SUBSCRIPTION_ID: "271ac31c-4007-444c-a88d-30cd78fa2a03"
+  ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -54,14 +60,7 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-
-      - name:  Setup Terraform Credentials
-        run: |
-          echo "${{ secrets.CLIENT_ID }}"
-          export ARM_CLIENT_ID="${{ secrets.CLIENT_ID }}"
-          export ARM_CLIENT_SECRET="${{ secrets.CLIENT_SECRET }}"
-          export ARM_TENANT_ID="${{ secrets.TENANT_ID }}"
-
+  
       - name: Terraform Init
         run: terraform init
 
