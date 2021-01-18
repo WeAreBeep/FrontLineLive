@@ -5,7 +5,8 @@
     <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
     <LangVersion>8.0</LangVersion>
 	<Configurations>Debug;Release;Staging</Configurations>
-	<UserSecretsId>${{secrets.WEB-USERSECRETSID}}</UserSecretsId>
+	<UserSecretsId>bd970d50-afde-4789-9702-43236f013c9e</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SendGrid" Version="9.14.1" />
@@ -76,7 +78,7 @@
     </Content>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)' != 'Release'">
     <Exec Command="lessc wwwroot/style.less wwwroot/style.css" />
   </Target>
 
