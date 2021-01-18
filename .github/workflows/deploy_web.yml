@@ -29,7 +29,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Output Run Number
-        run: echo 'GITHUB_RUN_NUMBER is: ${{ github.run_number }}.'
+        run: echo 'GitHub Run Number is ${{ github.run_number }}'
+
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
