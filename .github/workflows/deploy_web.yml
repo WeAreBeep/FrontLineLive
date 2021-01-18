@@ -28,6 +28,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Output Run Number
+        run: echo 'GITHUB_RUN_NUMBER is: ${{ github.run_number }}.'
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
@@ -44,4 +46,4 @@ jobs:
         with:
           file: /Dockerfile
           push: true
-          tags: frontlineacr.azurecr.io/web
+          tags: frontlineacr.azurecr.io/web:${{ github.run_number }}
