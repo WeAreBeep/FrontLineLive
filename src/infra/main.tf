@@ -15,12 +15,12 @@ provider "azurerm" {
 locals {
   prefix = "frontline"
 
-  container_image = "${var.container_registry}/${var.container_image_name}:${var.container_image_tag}"
+  container_image = "${data.azurerm_container_registry.acr.login_server}/${var.container_image_name}:${var.container_image_tag}"
 
   env_variables = {
-    DOCKER_REGISTRY_SERVER_URL      = "https://${var.container_registry}"
-    DOCKER_REGISTRY_SERVER_USERNAME = var.container_registry_username
-    DOCKER_REGISTRY_SERVER_PASSWORD = var.container_registry_password
+    DOCKER_REGISTRY_SERVER_URL      = "https://${data.azurerm_container_registry.acr.login_server}"
+    DOCKER_REGISTRY_SERVER_USERNAME = data.azurerm_container_registry.acr.admin_username
+    DOCKER_REGISTRY_SERVER_PASSWORD = data.azurerm_container_registry.acr.admin_password
   }
 
   tags = {
@@ -30,6 +30,11 @@ locals {
 
 data "azurerm_resource_group" "rg" {
   name     = "${local.prefix}-rg-${var.env}"
+}
+
+data "azurerm_container_registry" "acr" {
+  name                = var.container_registry_name
+  resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_app_service_plan" "asp" {

@@ -3,17 +3,9 @@ variable "env" {
   default = "dev"
 }
 
-variable "container_registry" {
+variable "container_registry_name" {
   type    = string
-}
-
-variable "container_registry_username" {
-  type    = string
-}
-
-variable "container_registry_password" {
-  type    = string
-  sensitive = true
+  default = "frontlineacr"
 }
 
 variable "container_image_name" {

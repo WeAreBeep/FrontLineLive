@@ -68,13 +68,12 @@ jobs:
       - name: Terraform Plan
         run: |
           terraform plan \
-            -var 'container_registry=${{ secrets.ACR_SERVER }}' \
-            -var 'container_registry_username=${{ secrets.ACR_USERNAME }}' \
-            -var 'container_registry_password=${{ secrets.ACR_PASSWORD }}' \
             -var 'container_image_tag=${{ github.run_number }}'
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve \
+            -var 'container_image_tag=${{ github.run_number }}'
 
   promote:
     runs-on: ubuntu-latest
