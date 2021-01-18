@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./src/terraform
+        working-directory: ./src/infra
 
     steps:
     
