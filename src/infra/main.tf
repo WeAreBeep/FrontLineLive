@@ -25,6 +25,7 @@ locals {
 
   tags = {
     owner = "terraform"
+    site = "Frontline Live"
   }
 }
 
@@ -65,7 +66,7 @@ resource "azurerm_app_service" "web" {
   }
 
   app_settings = merge(local.env_variables, {
-    AZURE_MONITOR_INSTRUMENTATION_KEY = azurerm_application_insights.insights.instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.insights.instrumentation_key
   })
 }
 
