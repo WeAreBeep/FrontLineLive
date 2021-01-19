@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    environment: Production
+    environment: Development
 
     defaults:
       run:
