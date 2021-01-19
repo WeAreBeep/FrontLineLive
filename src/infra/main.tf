@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "lm-devops-rg"
-    storage_account_name = "lmdevopsstor"
+    resource_group_name  = "frontline-rg-dev"
+    storage_account_name = "frontlinedevops"
     container_name       = "tf-state"
     key                  = "frontline.tfstate"
   }
