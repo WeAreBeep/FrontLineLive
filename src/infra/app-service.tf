@@ -1,5 +1,5 @@
 resource "azurerm_app_service_plan" "asp" {
-  name                = "${local.prefix}-asp-${var.env}"
+  name                = "${local.prefix}-asp-${terraform.workspace}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   kind                = "Linux"
@@ -14,7 +14,7 @@ resource "azurerm_app_service_plan" "asp" {
 }
 
 resource "azurerm_app_service" "web" {
-  name                = "${local.prefix}-web-${var.env}"
+  name                = "${local.prefix}-web-${terraform.workspace}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.asp.id
@@ -34,7 +34,7 @@ resource "azurerm_app_service" "web" {
 }
 
 resource "azurerm_application_insights" "insights" {
-  name                = "${local.prefix}-appi-${var.env}"
+  name                = "${local.prefix}-appi-${terraform.workspace}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   application_type    = "web"

@@ -1,8 +1,3 @@
-variable "env" {
-  type    = string
-  default = "dev"
-}
-
 variable "container_registry_name" {
   type    = string
   default = "frontlineacr"
