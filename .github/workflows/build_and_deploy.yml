@@ -49,12 +49,12 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-  
-      - name: Terraform Workspace
-        run: terraform workspace select dev || terraform workspace new dev
 
       - name: Terraform Init
         run: terraform init
+
+      - name: Terraform Workspace
+        run: terraform workspace select dev
 
       - name: Terraform Plan
         run: |
@@ -81,12 +81,12 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-  
-      - name: Terraform Workspace
-        run: terraform workspace select prod || terraform workspace new prod
 
       - name: Terraform Init
         run: terraform init
+
+      - name: Terraform Workspace
+        run: terraform workspace select prod
 
       - name: Terraform Plan
         run: |
