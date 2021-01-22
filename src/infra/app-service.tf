@@ -25,12 +25,12 @@ resource "azurerm_app_service" "web" {
     linux_fx_version = "DOCKER|${local.container_image}"
   }
 
-  app_settings = {
+  app_settings = merge(jsondecode(file("app-settings.json")), {
     DOCKER_REGISTRY_SERVER_URL      = "https://${data.azurerm_container_registry.acr.login_server}"
     DOCKER_REGISTRY_SERVER_USERNAME = data.azurerm_container_registry.acr.admin_username
     DOCKER_REGISTRY_SERVER_PASSWORD = data.azurerm_container_registry.acr.admin_password
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.insights.instrumentation_key
-  }
+  })
 }
 
 resource "azurerm_application_insights" "insights" {
