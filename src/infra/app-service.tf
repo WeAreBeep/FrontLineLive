@@ -25,24 +25,12 @@ resource "azurerm_app_service" "web" {
     linux_fx_version = "DOCKER|${local.container_image}"
   }
 
-  app_settings = merge(local.env_variables, {
+  app_settings = {
+    DOCKER_REGISTRY_SERVER_URL      = "https://${data.azurerm_container_registry.acr.login_server}"
+    DOCKER_REGISTRY_SERVER_USERNAME = data.azurerm_container_registry.acr.admin_username
+    DOCKER_REGISTRY_SERVER_PASSWORD = data.azurerm_container_registry.acr.admin_password
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.insights.instrumentation_key
-  })
-}
-
-resource "azurerm_app_service_slot" "slot" {
-  name                = "${local.prefix}-web-${var.env}-slot"
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.asp.id
-  app_service_name    = azurerm_app_service.web.name
-  tags                = local.tags
-
-  site_config {
-    always_on = "true"
   }
-
-  app_settings = local.env_variables
 }
 
 resource "azurerm_application_insights" "insights" {
