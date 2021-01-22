@@ -1,44 +1,31 @@
-name: CICD
+name: Build and Deploy
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
+    branches: [ master ]
   pull_request:
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches: [ master ]
 
 env:
   ARM_CLIENT_ID: "${{ secrets.CLIENT_ID }}"
   ARM_CLIENT_SECRET: "${{ secrets.CLIENT_SECRET }}"
+  # TODO: Move this to secrets
   ARM_SUBSCRIPTION_ID: "271ac31c-4007-444c-a88d-30cd78fa2a03"
   ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
+jobs:  
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: Output Run Number
-        run: echo 'GitHub Run Number is ${{ github.run_number }}'
 
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
-           # Container registry username
            username: ${{ secrets.ACR_USERNAME }}
-           # Container registry password
            password: ${{ secrets.ACR_PASSWORD }}
-           # Container registry server url
            login-server: ${{ secrets.ACR_SERVER }}
        
       - name: Build and push
