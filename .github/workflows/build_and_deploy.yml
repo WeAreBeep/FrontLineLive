@@ -14,6 +14,17 @@ env:
   ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
 
+  APP_DATA_SUPPLIERS_SHEET: "${{ secrets.APP_DATA_SUPPLIERS_SHEET }}"
+  APP_EMAIL_FROMADDRESS: "${{ secrets.APP_EMAIL_FROMADDRESS }}"
+  APP_EMAIL_SENDGRIDKEY: "${{ secrets.APP_EMAIL_SENDGRIDKEY }}"
+  APP_EMAIL_SENDGRIDUSER: "${{ secrets.APP_EMAIL_SENDGRIDUSER }}"
+  APP_EMAIL_TOADDRESS: "${{ secrets.APP_EMAIL_TOADDRESS }}"
+  APP_MAPBOX_TOKEN: "${{ secrets.APP_MAPBOX_TOKEN }}"
+  APP_RECAPTCHA_SECRETKEY: "${{ secrets.APP_RECAPTCHA_SECRETKEY }}"
+  APP_RECAPTCHA_SITEKEY: "${{ secrets.APP_RECAPTCHA_SITEKEY }}"
+  APP_DATACONTEXT: "${{ secrets.APP_DATACONTEXT }}"
+  WEB_USERSECRETSID: "${{ secrets.WEB_USERSECRETSID }}"
+
 jobs:  
   build:
     runs-on: ubuntu-latest
@@ -40,31 +51,18 @@ jobs:
 
     environment: Development
 
-    defaults:
-      run:
-        working-directory: ./src/infra
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Workspace
-        run: terraform workspace select dev
-
-      - name: Terraform Plan
-        run: |
-          terraform plan \
-            -var 'container_image_tag=${{ github.run_number }}'
-
-      - name: Terraform Apply
-        run: |
-          terraform apply -auto-approve \
-            -var 'container_image_tag=${{ github.run_number }}'
+      - name: Terraform
+        run: ./deploy_terraform.sh 
+        shell: bash
+        working-directory: ./src/infra
+        env: 
+          DEPLOY_WORKSPACE: dev
 
   deploy_prod:
     runs-on: ubuntu-latest
@@ -72,28 +70,15 @@ jobs:
 
     environment: Production
 
-    defaults:
-      run:
-        working-directory: ./src/infra
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Workspace
-        run: terraform workspace select prod
-
-      - name: Terraform Plan
-        run: |
-          terraform plan \
-            -var 'container_image_tag=${{ github.run_number }}'
-
-      - name: Terraform Apply
-        run: |
-          terraform apply -auto-approve \
-            -var 'container_image_tag=${{ github.run_number }}'
+      - name: Terraform
+        run: ./deploy_terraform.sh 
+        shell: bash
+        working-directory: ./src/infra
+        env: 
+          DEPLOY_WORKSPACE: prod
