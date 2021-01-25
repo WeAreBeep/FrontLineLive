@@ -7,11 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  ARM_CLIENT_ID: "${{ secrets.CLIENT_ID }}"
-  ARM_CLIENT_SECRET: "${{ secrets.CLIENT_SECRET }}"
-  # TODO: Move this to secrets
-  ARM_SUBSCRIPTION_ID: "271ac31c-4007-444c-a88d-30cd78fa2a03"
-  ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
+  ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
 
   APP_DATA_SUPPLIERS_SHEET: "${{ secrets.APP_DATA_SUPPLIERS_SHEET }}"
@@ -57,6 +53,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Terraform
         run: ./deploy_terraform.sh 
         shell: bash
@@ -75,6 +75,10 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Terraform
         run: ./deploy_terraform.sh 
