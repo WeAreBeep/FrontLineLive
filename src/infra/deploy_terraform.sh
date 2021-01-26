@@ -27,9 +27,11 @@ terraform workspace select $DEPLOY_WORKSPACE
 echo "Planning Terraform Deployment..."
 
 terraform plan \
-    -var "container_image_tag=$GITHUB_RUN_NUMBER"
+    -var "container_image_tag=$GITHUB_RUN_NUMBER" \
+    -var "environment_name=$ENVIRONMENT_NAME"
 
 echo "Applying Terraform Deployment..."
 
 terraform apply -auto-approve \
-    -var "container_image_tag=$GITHUB_RUN_NUMBER"
+    -var "container_image_tag=$GITHUB_RUN_NUMBER" \
+    -var "environment_name=$ENVIRONMENT_NAME"

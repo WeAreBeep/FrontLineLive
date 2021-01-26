@@ -30,6 +30,7 @@ resource "azurerm_app_service" "web" {
     DOCKER_REGISTRY_SERVER_USERNAME = data.azurerm_container_registry.acr.admin_username
     DOCKER_REGISTRY_SERVER_PASSWORD = data.azurerm_container_registry.acr.admin_password
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.insights.instrumentation_key
+    ASPNETCORE_ENVIRONMENT = var.environment_name
   })
 }
 

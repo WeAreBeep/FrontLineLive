@@ -1,3 +1,7 @@
+variable "environment_name" {
+  type  = string
+}
+
 variable "container_registry_name" {
   type    = string
   default = "frontlineacr"
