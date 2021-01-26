@@ -4,20 +4,19 @@ set -e
 
 echo "Writing GitHub secrets to app-settings.json..."
 
-
-
-jq -n '$ARGS.named' \
-    --arg APP_DATA_SUPPLIERS_SHEET "$APP_DATA_SUPPLIERS_SHEET" \
-    --arg Emails__FromAddress "$APP_EMAIL_FROMADDRESS" \
-    --arg Emails__SendGridKey "$APP_EMAIL_SENDGRIDKEY" \
-    --arg Emails__ToAddresses "$APP_EMAIL_TOADDRESS" \
-    --arg AuthMessageSender__SendGridUser "$APP_EMAIL_SENDGRIDUSER" \
-    --arg AuthMessageSender__SendGridKey "$APP_EMAIL_SENDGRIDKEY" \
-    --arg APP_MAPBOX_TOKEN "$APP_MAPBOX_TOKEN" \
-    --arg ReCaptcha__SecretKey "$APP_RECAPTCHA_SECRETKEY" \
-    --arg ReCaptcha__SiteKey "$APP_RECAPTCHA_SITEKEY" \
-    --arg APP_DATACONTEXT "$APP_DATACONTEXT" \
-    --arg WEB_USERSECRETSID "$WEB_USERSECRETSID" > ./app-settings.json
+echo "{
+    \"APP_DATA_SUPPLIERS_SHEET\": \"$APP_DATA_SUPPLIERS_SHEET\",
+    \"Emails__FromAddress\": \"$APP_EMAIL_FROMADDRESS\",
+    \"Emails__SendGridKey\": \"$APP_EMAIL_SENDGRIDKEY\",
+    \"Emails__ToAddresses\": \"$APP_EMAIL_TOADDRESS\",
+    \"AuthMessageSender__SendGridUser\": \"$APP_EMAIL_SENDGRIDUSER\",
+    \"AuthMessageSender__SendGridKey\": \"$APP_EMAIL_SENDGRIDKEY\",
+    \"APP_MAPBOX_TOKEN\": \"$APP_MAPBOX_TOKEN\",
+    \"ReCaptcha__SecretKey\": \"$APP_RECAPTCHA_SECRETKEY\",
+    \"ReCaptcha__SiteKey\": \"$APP_RECAPTCHA_SITEKEY\",
+    \"APP_DATACONTEXT\": \"$APP_DATACONTEXT\",
+    \"WEB_USERSECRETSID\": \"$WEB_USERSECRETSID\"
+}" > ./app-settings.json
 
 echo "Initializing Terraform..."
 
