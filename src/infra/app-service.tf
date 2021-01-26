@@ -30,8 +30,15 @@ resource "azurerm_app_service" "web" {
     DOCKER_REGISTRY_SERVER_USERNAME = data.azurerm_container_registry.acr.admin_username
     DOCKER_REGISTRY_SERVER_PASSWORD = data.azurerm_container_registry.acr.admin_password
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.insights.instrumentation_key
-    ASPNETCORE_ENVIRONMENT = var.environment_name
+    ASPNETCORE_ENVIRONMENT = var.environment_name,
+    DeploymentContext = var.environment_name
   })
+
+  connection_string {
+    name = "DataContext"
+    type = "SQLServer"
+    value = "Server=tcp:${azurerm_sql_server.sql_svr.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.sql_db.name};Persist Security Info=False;User ID=${var.sql_admin_login};Password=${var.sql_admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
 }
 
 resource "azurerm_application_insights" "insights" {

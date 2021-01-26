@@ -4,15 +4,18 @@ set -e
 
 echo "Writing GitHub secrets to app-settings.json..."
 
+
+
 jq -n '$ARGS.named' \
     --arg APP_DATA_SUPPLIERS_SHEET "$APP_DATA_SUPPLIERS_SHEET" \
-    --arg APP_EMAIL_FROMADDRESS "$APP_EMAIL_FROMADDRESS" \
-    --arg APP_EMAIL_SENDGRIDKEY "$APP_EMAIL_SENDGRIDKEY" \
-    --arg APP_EMAIL_SENDGRIDUSER "$APP_EMAIL_SENDGRIDUSER" \
-    --arg APP_EMAIL_TOADDRESS "$APP_EMAIL_TOADDRESS" \
+    --arg Emails__FromAddress "$APP_EMAIL_FROMADDRESS" \
+    --arg Emails__SendGridKey "$APP_EMAIL_SENDGRIDKEY" \
+    --arg Emails__ToAddresses "$APP_EMAIL_TOADDRESS" \
+    --arg AuthMessageSender__SendGridUser "$APP_EMAIL_SENDGRIDUSER" \
+    --arg AuthMessageSender__SendGridKey "$APP_EMAIL_SENDGRIDKEY" \
     --arg APP_MAPBOX_TOKEN "$APP_MAPBOX_TOKEN" \
-    --arg APP_RECAPTCHA_SECRETKEY "$APP_RECAPTCHA_SECRETKEY" \
-    --arg APP_RECAPTCHA_SITEKEY "$APP_RECAPTCHA_SITEKEY" \
+    --arg ReCaptcha__SecretKey "$APP_RECAPTCHA_SECRETKEY" \
+    --arg ReCaptcha__SiteKey "$APP_RECAPTCHA_SITEKEY" \
     --arg APP_DATACONTEXT "$APP_DATACONTEXT" \
     --arg WEB_USERSECRETSID "$WEB_USERSECRETSID" > ./app-settings.json
 
