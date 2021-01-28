@@ -4,9 +4,6 @@ set -e
 
 echo "Writing GitHub secrets to app-settings.json..."
 
-echo $ARM_ACCESS_KEY;
-echo "length is ${#ARM_ACCESS_KEY}"
-
 echo "{
     \"APP_DATA_SUPPLIERS_SHEET\": \"$APP_DATA_SUPPLIERS_SHEET\",
     \"Emails__FromAddress\": \"$APP_EMAIL_FROMADDRESS\",
@@ -33,10 +30,12 @@ echo "Planning Terraform Deployment..."
 
 terraform plan \
     -var "container_image_tag=$GITHUB_RUN_NUMBER" \
-    -var "environment_name=$ENVIRONMENT_NAME"
+    -var "environment_name=$ENVIRONMENT_NAME" \
+    -var "sql_admin_password=$SQL_ADMIN_PASSWORD"
 
 echo "Applying Terraform Deployment..."
 
 terraform apply -auto-approve \
     -var "container_image_tag=$GITHUB_RUN_NUMBER" \
-    -var "environment_name=$ENVIRONMENT_NAME"
+    -var "environment_name=$ENVIRONMENT_NAME" \
+    -var "sql_admin_password=$SQL_ADMIN_PASSWORD"

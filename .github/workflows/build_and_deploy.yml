@@ -21,6 +21,8 @@ env:
   APP_DATACONTEXT: "${{ secrets.APP_DATACONTEXT }}"
   WEB_USERSECRETSID: "${{ secrets.WEB_USERSECRETSID }}"
 
+  SQL_ADMIN_PASSWORD: ${{ secrets.SQL_ADMIN_PASSWORD }}
+
 jobs:  
   build:
     runs-on: ubuntu-latest
@@ -64,6 +66,7 @@ jobs:
         env: 
           DEPLOY_WORKSPACE: dev
           ENVIRONMENT_NAME: Development
+          
 
   deploy_prod:
     runs-on: ubuntu-latest
