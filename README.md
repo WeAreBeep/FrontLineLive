@@ -17,7 +17,10 @@ Front Line Live code and target operating model
 |-|-|
 |ARM_SUBSCRIPTION_ID*|The Azure subscription ID you wish the use.|
 |ARM_ACCESS_KEY|Azure Storage Account used for TF remote state. See [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage).|
-|AZURE_CREDENTIALS*|See [here](https://github.com/marketplace/actions/azure-login#configure-deployment-credentials).|
+|ARM_CLIENT_ID||
+|ARM_CLIENT_SECRET||
+|ARM_SUBSCRIPTION_ID||
+|ARM_TENANT_ID||
 |ACR_USERNAME|Username for ACR's [Admin Account](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account).|
 |ACR_PASSWORD|Password for ACR's [Admin Account](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account).|
 |ACR_SERVER|The login server for ACR|
