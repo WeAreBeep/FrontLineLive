@@ -4,6 +4,9 @@ set -e
 
 echo "Writing GitHub secrets to app-settings.json..."
 
+echo $ARM_ACCESS_KEY;
+echo "length is ${#ARM_ACCESS_KEY}"
+
 echo "{
     \"APP_DATA_SUPPLIERS_SHEET\": \"$APP_DATA_SUPPLIERS_SHEET\",
     \"Emails__FromAddress\": \"$APP_EMAIL_FROMADDRESS\",
