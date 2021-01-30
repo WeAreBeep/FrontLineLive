@@ -41,6 +41,8 @@ namespace Web.Controllers
 				data = dataContext.Supplies;
 			}
 
+			ViewBag.SuppliersDataSheet = Environment.GetEnvironmentVariable("APP_DATA_SUPPLIERS_SHEET");
+
 			return View(new SupplierViewModel {
 				Suppliers = data.SelectToList(SupplierPpeType.ToSupplierModel),
 				UserLoggedIn = userLoggedIn,

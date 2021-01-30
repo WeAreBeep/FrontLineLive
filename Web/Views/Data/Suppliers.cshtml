@@ -5,95 +5,90 @@
 }
 
 <main>
-    <table id="suppliers" class="display content">
-        <thead>
-            <tr>
-                @if (Model.UserLoggedIn)
-                {
-                    <th>Edit</th>
+	<table id="suppliers" class="display content">
+		<thead>
+			<tr>
+				@if (Model.UserLoggedIn)
+				{
+				<th>Edit</th>
 
-                    <th>Last Note</th>
-                    <th>Note</th>
-                    <th>Note Author</th>
+				<th>Last Note</th>
+				<th>Note</th>
+				<th>Note Author</th>
 
-                    <th>Id</th>
-                    <th>Ush. Id</th>
-                    <th>Ush. Url</th>
-                }
-                <th>Registered</th>
-                <th>Status</th>
-                <th>Organisation Name</th>
-                <th>Organisation Type</th>
-                <th>Org Type Other</th>
-                <th>What you can supply</th>
-                <th>Other</th>
-                <th>Meets Regulatory Requirements</th>
-                <th>Capacity</th>
-                @if (Model.UserLoggedIn)
-                {
-                    <th>Costs</th>
-                }
-                <th>Contact Details</th>
-                <th>Contact Name</th>
-                <th>Postcode</th>
-                <th>Website</th>
-                <th>Description</th>
-                <th>TellUsMore</th>
-                <th>Longitude</th>
-                <th>Latitude</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (SupplierModel supplier in this.Model.Suppliers)
-            {
-                <tr>
-                    @if (Model.UserLoggedIn)
-                    {
-                        <td class="cell_links">
-                            <a class="btn_action" href="../edit-supplies/@supplier.Id">Edit</a>
-                        </td>
+				<th>Id</th>
+				<th>Ush. Id</th>
+				<th>Ush. Url</th>}
+				<th>Registered</th>
+				<th>Status</th>
+				<th>Organisation Name</th>
+				<th>Organisation Type</th>
+				<th>Org Type Other</th>
+				<th>What you can supply</th>
+				<th>Other</th>
+				<th>Meets Regulatory Requirements</th>
+				<th>Capacity</th>
+				@if (Model.UserLoggedIn)
+				{
+	<th>Costs</th>}
+				<th>Contact Details</th>
+				<th>Contact Name</th>
+				<th>Postcode</th>
+				<th>Website</th>
+				<th>Description</th>
+				<th>TellUsMore</th>
+				<th>Longitude</th>
+				<th>Latitude</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (SupplierModel supplier in this.Model.Suppliers)
+			{
+<tr>
+	@if (Model.UserLoggedIn)
+	{
+	<td class="cell_links">
+		<a class="btn_action" href="../edit-supplies/@supplier.Id">Edit</a>
+	</td>
 
-                        <td>@supplier.NoteTimestamp</td>
-                        <td>@supplier.NoteText</td>
-                        <td>@supplier.NoteAuthor</td>
+	<td>@supplier.NoteTimestamp</td>
+	<td>@supplier.NoteText</td>
+	<td>@supplier.NoteAuthor</td>
 
-                        <td>@supplier.Id</td>
-                        <td>@supplier.UshahidiId</td>
-                        <td>@supplier.UshahidiUrl</td>
-                    }
-                    <td>@supplier.Timestamp</td>
-                    <td>@supplier.Status</td>
-                    <td>@supplier.Name</td>
-                    <td>@supplier.SupplierType</td>
-                    <td>@supplier.SupplierTypeOther</td>
-                    <td>@supplier.PpeTypesSupplied</td>
-                    <td>@supplier.PpeTypesOther</td>
-                    <td>@supplier.MeetsRegulations</td>
-                    <td>@supplier.Capacity</td>
-                    @if (Model.UserLoggedIn)
-                    {
-                        <td>@supplier.Costs</td>
-                    }
-                    <td>@supplier.ContactDetails</td>
-                    <td>@supplier.ContactName</td>
-                    <td>@supplier.Postcode</td>
-                    <td>@supplier.Website</td>
-                    <td>@supplier.Description</td>
-                    <td>@supplier.TellUsMore</td>
-                    <td>@supplier.Longitude</td>
-                    <td>@supplier.Latitude</td>
+	<td>@supplier.Id</td>
+	<td>@supplier.UshahidiId</td>
+	<td>@supplier.UshahidiUrl</td>}
+	<td>@supplier.Timestamp</td>
+	<td>@supplier.Status</td>
+	<td>@supplier.Name</td>
+	<td>@supplier.SupplierType</td>
+	<td>@supplier.SupplierTypeOther</td>
+	<td>@supplier.PpeTypesSupplied</td>
+	<td>@supplier.PpeTypesOther</td>
+	<td>@supplier.MeetsRegulations</td>
+	<td>@supplier.Capacity</td>
+	@if (Model.UserLoggedIn)
+	{
+	<td>@supplier.Costs</td>}
+	<td>@supplier.ContactDetails</td>
+	<td>@supplier.ContactName</td>
+	<td>@supplier.Postcode</td>
+	<td>@supplier.Website</td>
+	<td>@supplier.Description</td>
+	<td>@supplier.TellUsMore</td>
+	<td>@supplier.Longitude</td>
+	<td>@supplier.Latitude</td>
 
-                </tr>
-            }
-        </tbody>
-    </table>
-    @*<div id="suppliers_wrap">
+</tr>}
+		</tbody>
+	</table>
+	@*<div id="suppliers_wrap">
 
-            <iframe id="suppliers_frame"
-                    src="${{secrets.APP-DATA-SUPPLIERS-SHEET}}">
-            </iframe>
+			<iframe id="suppliers_frame"
+					src="@ViewBag.SuppliersDataSheet">
+			</iframe>
 
-        </div>*@
+		</div>*@
 </main>
 
 @section Scripts
