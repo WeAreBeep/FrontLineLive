@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     resource_group_name  = "frontline-rg-baseline"
-    storage_account_name = "frontlinedevops"
+    storage_account_name = "frontlinesa2"
     container_name       = "tf-state"
     key                  = "frontline.tfstate"
   }

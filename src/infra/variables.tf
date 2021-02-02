@@ -4,7 +4,7 @@ variable "environment_name" {
 
 variable "container_registry_name" {
   type    = string
-  default = "frontlineacr"
+  default = "frontlineacr2"
 }
 
 variable "container_image_name" {
