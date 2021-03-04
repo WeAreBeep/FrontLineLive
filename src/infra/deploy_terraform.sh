@@ -15,7 +15,11 @@ echo "{
     \"ReCaptcha__SecretKey\": \"$APP_RECAPTCHA_SECRETKEY\",
     \"ReCaptcha__SiteKey\": \"$APP_RECAPTCHA_SITEKEY\",
     \"APP_DATACONTEXT\": \"$APP_DATACONTEXT\",
-    \"WEB_USERSECRETSID\": \"$WEB_USERSECRETSID\"
+    \"WEB_USERSECRETSID\": \"$WEB_USERSECRETSID\",
+    \"ContentfulOptions__DeliveryApiKey\": \"$CONTENTFUL_DELIVERY_ACCESS_TOKEN\",
+    \"ContentfulOptions__SpaceId\": \"$CONTENTFUL_SPACE_ID\",
+    \"ContentfulOptions__Environment\": \"$CONTENTFUL_ENVIRONMENT\",
+    \"ContentfulOptions__UsePreviewApi\": false
 }" > ./app-settings.json
 
 echo "Initializing Terraform..."

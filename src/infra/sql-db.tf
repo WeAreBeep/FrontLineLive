@@ -19,3 +19,11 @@ resource "azurerm_mssql_database" "sql_db" {
 
   tags = local.tags
 }
+
+resource "azurerm_sql_firewall_rule" "sql_fw" {
+  name                = "AllowAzure"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  server_name         = azurerm_sql_server.sql_svr.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}

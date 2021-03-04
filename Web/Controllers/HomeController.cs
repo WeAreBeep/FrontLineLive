@@ -1,10 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Threading.Tasks;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Web.Infrastructure;
 using Web.Models;
 using Web.Snippets;
 using Web.Snippets.Messaging;
 using Web.Db;
+using Web.Services;
+using Web.Models.Contentful;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,9 @@ namespace Web.Controllers
 	[FrontEndFilter]
 	public class HomeController : BaseController
 	{
-		public IActionResult Index([FromServices] DataContext dataContext)
+		public async Task<IActionResult> Index(
+            [FromServices] DataContext dataContext,
+            [FromServices] IContentfulService contentfulService)
 		{
 			SimpleNotifier noty = notifier();
             noty.AddMessage(MsgTypes.Information, "TIP: Try changing Map Layers (top right)");
@@ -38,11 +43,24 @@ namespace Web.Controllers
 
 			ViewData["contactable"] = countSeeminglyContactableNeedsPosts;
 			ViewData["noncontactable"] = countAllNeedsPosts - countSeeminglyContactableNeedsPosts;
+			ViewData["contentful"] = await contentfulService.GetFirstByContentType<HomePageViewModel>("home-page");
 
 			return View();
 		}
 
-		public IActionResult About() => View();
+		public async Task<IActionResult> About([FromServices] IContentfulService contentfulService)
+		{
+			ViewData["contentful"] = await contentfulService.GetFirstByContentType<AboutUsPageViewModel>("about-us-page");
+			return View();
+		}
+
+		[InvertedLayout]
+		public async Task<IActionResult> Partners([FromServices] IContentfulService contentfulService)
+		{
+			ViewData["contentful"] = await contentfulService.GetFirstByContentType<PartnersPageViewModel>("partners-page");
+			return View();
+		}
+
         public IActionResult Resources() => View();
         public IActionResult Reports() => View();
 

@@ -14,6 +14,18 @@ namespace Web.Snippets.Microsoft.AspNetCore.Mvc.Rendering
 		{
 			IHtmlContent labelP = html.LabelPFor(expression);
 			IHtmlContent descriptionP = html.DescriptionPFor(expression);
+			return LabelsFor(html, expression, labelP, descriptionP);
+		}
+
+		public static IHtmlContent LabelsFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string labelText, string descriptionText)
+		{
+			IHtmlContent labelP = html.LabelPFor(expression, labelText);
+			IHtmlContent descriptionP = html.DescriptionPFor(expression, descriptionText);
+			return LabelsFor(html, expression, labelP, descriptionP);
+		}
+
+		public static IHtmlContent LabelsFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, IHtmlContent labelP, IHtmlContent descriptionP)
+		{
 			TagBuilder tagBuilder = new TagBuilder("div");
 			tagBuilder.InnerHtml.AppendHtml(labelP);
 			tagBuilder.InnerHtml.AppendHtml(descriptionP);
@@ -45,16 +57,36 @@ namespace Web.Snippets.Microsoft.AspNetCore.Mvc.Rendering
 
 		public static IHtmlContent DescriptionPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression)
 		{
+			return DescriptionPFor(html, expression, html.DescriptionFor(expression));
+		}
+
+		public static IHtmlContent DescriptionPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string descriptionText)
+		{
+			return DescriptionPFor(html, expression, new HtmlString(descriptionText));
+		}
+
+		public static IHtmlContent DescriptionPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, IHtmlContent innerHtml)
+		{
 			TagBuilder tagBuilder = new TagBuilder("p");
 			tagBuilder.AddCssClass("description");
-			tagBuilder.InnerHtml.AppendHtml(html.DescriptionFor(expression));
+			tagBuilder.InnerHtml.AppendHtml(innerHtml);
 			return tagBuilder;
 		}
 
 		public static IHtmlContent LabelPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression)
 		{
+			return LabelPFor(html, expression, html.LabelFor(expression));
+		}
+
+		public static IHtmlContent LabelPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string labelText)
+		{
+			return LabelPFor(html, expression, html.LabelFor(expression, labelText));
+		}
+
+		public static IHtmlContent LabelPFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, IHtmlContent innerHtml)
+		{
 			TagBuilder tagBuilder = new TagBuilder("p");
-			tagBuilder.InnerHtml.AppendHtml(html.LabelFor(expression));
+			tagBuilder.InnerHtml.AppendHtml(innerHtml);
 			ModelExpression modelExpression = getModelExpression(html, expression);
 			if(modelExpression.Metadata.IsRequired)
 			{

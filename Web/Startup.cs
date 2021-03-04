@@ -6,10 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Contentful.AspNetCore;
 using Web.Db;
 using Web.Infrastructure;
 using Web.Snippets;
 using Web.Snippets.Microsoft.Extensions.Configuration;
+using Web.Services;
+using Contentful.Core.Models;
+using Web.Infrastructure.Contentful.Renderers;
 
 namespace Web
 {
@@ -48,7 +52,14 @@ namespace Web
 
             services.AddSingleton<IEmailSender, IdentityEmailSender>();
 
-            services.AddRazorPages() 
+			services.AddContentful(_configuration);
+			services.AddTransient((c) => {
+				var renderer = new HtmlRenderer();
+				renderer.AddRenderer(new SimpleHyperlinkRenderer() { Order = 10 });
+				return renderer;
+			});
+
+			services.AddRazorPages() 
                 .AddRazorPagesOptions(options =>  //locks down following folder and page for only users that are logged in (regardless of Role)
                 {
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage"); //folder for managing own identity
@@ -61,6 +72,7 @@ namespace Web
             });
 
             services.AddTransient<UsersFacade>();
+            services.AddScoped<IContentfulService, ContentfulService>();
 		}
 
 		public void Configure(IApplicationBuilder app)

@@ -18,13 +18,57 @@ namespace Web.Models
 		StringLength(1000, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string PpeTypeOther { get; set; }
 
-		[Display(Name = "Daily FFP1 Shortage", Description = "Estimate how many are missing per day</p><p class='description'>We are working with our not-for-profit partners <a href='https://www.caregiven.co.uk/'>Care Given</a> to get FFP1 Masks to those in need"),
+		[Display(Name = "Daily Shortage"),
 		NumericalRange(1, 1, 1000000)]
 		public int? DailyShortage { get; set; }
 
 		[Display(Name = "Daily FFP1 Shortage Details", Description = "Please tell us who the daily number above applies to. For example:</p><p class='description'>Entire ICU Ward</p><p class='description'>Team of 15 working nights"),
 		StringLength(500, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string DailyShortageForWhom { get; set; }
+
+		public string DailyShortageDisplayName
+		{
+			get
+			{
+				return Type switch {
+					PpeTypes.FFP1RespiratorMasks => "Daily FFP1 Shortage",
+					_ => "", // Description only
+				};
+			}
+		}
+
+		public string DailyShortageDisplayDescription
+		{
+			get
+			{
+				return Type switch {
+					PpeTypes.FFP1RespiratorMasks => "Estimate how many are missing per day</p><p class='description'>We are working with our not-for-profit partners <a href='https://www.caregiven.co.uk/'>Care Given</a> to get FFP1 Masks to those in need",
+					_ => "We are a charity. Our supplies are limited. How many do you (and your team) really need to bridge the gap until supplies arrive?",
+				};
+			}
+		}
+
+		public string DailyShortageForWhomDisplayName
+		{
+			get
+			{
+				return Type switch {
+					PpeTypes.FFP1RespiratorMasks => "Daily FFP1 Shortage Details",
+					_ => "", // Discription only
+				};
+			}
+		}
+
+		public string DailyShortageForWhomDisplayDescription
+		{
+			get
+			{
+				return Type switch {
+					PpeTypes.FFP1RespiratorMasks => "Please tell us who the daily number above applies to. For example:</p><p class='description'>Entire ICU Ward</p><p class='description'>Team of 15 working nights",
+					_ => "How many people will this protect for how long?",
+				};
+			}
+		}
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
@@ -34,11 +78,11 @@ namespace Web.Models
 				respVal.Add(new ValidationResult("Please add <b>PPE Type Other</b> to describe the PPE Type when choosing <b>\"Other...\"</b>", 
 					new List<string> { $"{PpeTypeOther}" }));
 			}
-			if(Type == PpeTypes.FFP1RespiratorMasks && Selected)
+			if (Selected)
 			{
 				if(DailyShortage == null)
 				{
-					respVal.Add(new ValidationResult("Please add <b>Daily FFP1 Shortage</b>", 
+					respVal.Add(new ValidationResult($"Please add <b>{DailyShortageDisplayName}</b>", 
 						new List<string> { $"{nameof(DailyShortage)}" }));
 				}
 				else
@@ -52,6 +96,9 @@ namespace Web.Models
 							new List<string> { $"{nameof(DailyShortage)}" }));
 					}
 				}
+			}
+			if(Type == PpeTypes.FFP1RespiratorMasks && Selected)
+			{
 				if(String.IsNullOrWhiteSpace(DailyShortageForWhom))
 				{
 					respVal.Add(new ValidationResult("Please add <b>Daily FFP1 Shortage Details</b>", 

@@ -18,21 +18,28 @@
     @if(Model.Type == PpeTypes.Other)
     {
         <div v-bind:class="{ active: @selectedVueName }" class="toggleable indent">
-            @Html.LabelsFor(m => m.PpeTypeOther)
-            @Html.TextBoxFor(m => m.PpeTypeOther)
-            @Html.HtmlValidationMessageFor(m => m.PpeTypeOther)
-        </div>
-    }
-    else if(Model.Type == PpeTypes.FFP1RespiratorMasks)
-    {
-        <div v-bind:class="{ active: @selectedVueName }" class="toggleable indent">
             <div>
-                @Html.LabelsFor(m => m.DailyShortage)
+                @Html.LabelsFor(m => m.DailyShortage, Model.DailyShortageDisplayName, Model.DailyShortageDisplayDescription)
                 @Html.NumberPickerFor(m => m.DailyShortage)
                 @Html.HtmlValidationMessageFor(m => m.DailyShortage)
             </div>
             <div>
-                @Html.LabelsFor(m => m.DailyShortageForWhom)
+                @Html.LabelsFor(m => m.PpeTypeOther)
+                @Html.TextBoxFor(m => m.PpeTypeOther)
+                @Html.HtmlValidationMessageFor(m => m.PpeTypeOther)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div v-bind:class="{ active: @selectedVueName }" class="toggleable indent">
+            <div>
+                @Html.LabelsFor(m => m.DailyShortage, Model.DailyShortageDisplayName, Model.DailyShortageDisplayDescription)
+                @Html.NumberPickerFor(m => m.DailyShortage)
+                @Html.HtmlValidationMessageFor(m => m.DailyShortage)
+            </div>
+            <div>
+                @Html.LabelsFor(m => m.DailyShortageForWhom, Model.DailyShortageForWhomDisplayName, Model.DailyShortageForWhomDisplayDescription)
                 @Html.TextBoxFor(m => m.DailyShortageForWhom)
                 @Html.HtmlValidationMessageFor(m => m.DailyShortageForWhom)
             </div>

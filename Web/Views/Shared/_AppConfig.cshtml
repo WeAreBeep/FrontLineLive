@@ -1,0 +1,8 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<script>
+    window.appConfig = {
+        mapboxToken: '@Configuration["APP_MAPBOX_TOKEN"]'
+    };
+</script>

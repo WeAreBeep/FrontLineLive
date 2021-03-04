@@ -17,7 +17,7 @@ namespace Web.Db
 				PublishAnonymously = s.PublishAnonymously,
 				Timestamp = DateTimeOffset.Now, //N.B for inserts 
 				StatusId = 	(int)PostStatus.UnderReview,//N.B for inserts 
-				ContactName = s.ContactName,
+				ContactName = s.ContactName ?? "",
 				JobTitle = s.JobTitle,
 				Email = s.Email,
 				PhoneNumber = s.PhoneNumber,

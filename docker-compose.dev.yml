@@ -1,0 +1,31 @@
+version: '3.4'
+
+volumes:
+  db_data: {}
+
+services:
+  web:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - NO_DOCKER=1
+    ports:
+      - "3000:3000"
+    command: make dev MODULE=Web PORT=3000
+    volumes:
+      - ./Web:/src/Web
+
+
+  db:
+    image: mcr.microsoft.com/azure-sql-edge
+    user: root
+    ports:
+    - 1433:1433
+    environment:
+      ACCEPT_EULA: 'true'
+      SA_PASSWORD: veryStrongSecret!
+    volumes:
+    - db_data:/var/opt/mssql:delegated

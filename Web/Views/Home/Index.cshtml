@@ -1,117 +1,15 @@
-﻿@section header{
+﻿@{
+    var contentfulModel = ViewData["contentful"] as Web.Models.Contentful.HomePageViewModel;
+}
+
+@section header{
     @await Html.PartialAsync("_Header")
 }
 
 <main class="home_main">
 
     <div id="intro">
-        <h1>Healthcare workers: We stand with you</h1>
-
-        <p>We are a charity. Our platform connects frontline health care workers who need PPE with companies and communities that can supply or donate PPE.</p>
-        <p>
-            As we enter the second wave, we need to know the people who are there to keep us safe, are kept safe. Please help us to spread the word. 
-            <a href="https://twitter.com/FrontlineMap" target="_blank">Follow us</a> 
-            or 
-            <a href="https://twitter.com/share?text=Healthcare%20workers%2C%20here%27s%20an%20account%20you%20should%20follow%20in%20case%20you%20ever%20find%20yourselves%20short%20of%20PPE.%20Let%27s%20be%20better%20prepared%20this%20time&url=https://twitter.com/FrontlineMap&hashtags=BeReady,PPEshortages"
-               target="_blank">share this page</a> to make sure our message and platform reaches as many frontline workers as possible.</a>
-        </p>
-        <!--
-        <div class="icons">
-
-            <a class="twitter"
-               href="https://twitter.com/FrontlineMap"
-               target="_blank"
-               title="View tweets"
-               class="smlogo faa-parent animated-hover">
-                <span class="faa-tada fa-stack fa-2x"><i class="fas fa-circle fa-stack-2x"></i><i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span>
-            </a>
-
-            <a class="facebook"
-               href="https://www.facebook.com/FrontlineMap"
-               target="_blank"
-               title="View facebook page"
-               class="smlogo faa-parent animated-hover"><i class="faa-tada fab fa-facebook fa-4x"></i></a>
-
-            <a class="instagram"
-               href="https://www.instagram.com/FrontlineMap"
-               target="_blank"
-               title="View instagram page"
-               class="smlogo faa-parent animated-hover faa-parent--instagram"><i class="faa-tada fab fa-instagram fa-4x"></i></a>
-
-        </div>
-        -->
-
-        <h2>How it works</h2>
-        <p class="padright">A simple realtime way to connect need and supply.</p>
-        <iframe class="bordered" src="https://player.vimeo.com/video/432241181?title=0&amp;byline=0&amp;portrait=0" width="540" height="310" frameborder="0" allow="autoplay"></iframe>
-        <div class="indent">
-            <p><span class="bignumber">1&nbsp;</span> <a href="/request-ppe">Tell us what you need</a> and we will put you on the map<br /><span class="bignumber">2&nbsp;</span>PPE supplier? <a href="/register-supplies">Register to appear on the map</a><br /><span class="bignumber">3&nbsp;</span>Our <a href="https://careers.smartrecruiters.com/frontlinelive" target="_blank">volunteers</a> get you connected</p>
-        </div>
-
-
-        <h2>our work so far</h2>
-        <p>With the help of over 40 volunteers we launched the first national, real-time, open data map of PPE needs and supply. Between March and July we achieved:</p>
-        <p class="indent">
-            <span class="bignumber">1,500+</span> PPE shortages reported<br />
-            <span class="bignumber">12,000+</span> pieces of PPE delivered<br />
-            <span class="bignumber">120</span> suppliers have signed up<br />
-            <span class="bignumber">40%</span> of hospitals have had needs met
-        </p>
-        <p>But with winter approaching, we cannot let our guard down; we must be protected and prepared.</p>
-        <p>Read more <a href="/about">about us</a> and how you can <a href="https://careers.smartrecruiters.com/frontlinelive" target="_blank">volunteer</a></p>
-
-
-        <iframe class="bordered" src="https://player.vimeo.com/video/427037095?title=0&amp;byline=0&amp;portrait=0" width="540" height="310" frameborder="0" allow="autoplay;"></iframe>
-
-        <h2>Partners</h2>
-        <div class="indent flex">
-            <a href="https://unitetheunion.org/" target="_blank"><img class="flexpad" src="/images/3p/unitelogo.png" width="160" /></a>
-            <div class="flexv">
-                <a href="https://www.nursesunited.org.uk/" target="_blank"><img class="flexpad" src="/images/3p/nursesunited.png" width="160" /></a>
-                <a href="ttps://www.caregiven.co.uk/" target="_blank"><img class="flexpad" src="/images/3p/caregiven.png" width="160" /></a>
-            </div>
-        </div>
-        <blockquote>
-            <p>We need to protect our medical, dental and nursing staff as they put themselves in harms way for us. 
-            Ready availability of appropriate personal protection equipment is the key to keeping them safe. 
-            An open data platform that shows front-line needs in real time can help us do just that.</p>
-            <div class="flex wide">
-                <img src="/images/3p/bbcnews.png" width="120" />
-                <p class="quoted">Prof Neil Mortensen<br /><span class="small">President elect</span><br />Royal College of Surgeons of England<br /><a href="https://www.bbc.co.uk/news/technology-52281578" target="_blank">Read more</a></p>
-            </div>
-        </blockquote>
-
-        <h2>Read &amp; Hear</h2>
-        <ul>
-            <li>
-                <a target="_blank" href="https://newdigitalage.co/2020/09/16/frontline-live-the-digital-platform-for-ppe-requests-achieves-charity-status/
-">Frontline Map reaches charitable status</a>
-            </li>
-            <li>
-                <a target="_blank"href="https://www.lbbonline.com/news/when-nhs-workers-were-fighting-covid-19-without-ppe-a-gang-of-digital-pioneers-came-to-their-aid#.X1oW5P53WCY.linkedin
-">Read about our Journey so far</a>
-            </li>
-            <li>
-                <a target="_blank"href="https://www.buzzsprout.com/495862/4849772
-">Hear this podcast with two of our founding volunteers</a>
-            </li>
-        </ul>
-
-
-        <!--
-    <p>Or tweet using all three hashtags:</p>
-
-            <ul class="hashtag_list">
-                <li>#FrontlineMap</li>
-                <li>#WorkPostcode <span>e.g. #SW11AA</span></li>
-                <li>#PPEneed <span>e.g. #FFP2Masks</span></li>
-            </ul>
-
-            <p>We will put your needs on the map so you get the PPE you need to stay safe</p>
-
-            <p>To see how it works <a title="Click here to see a video about frontline.live" href="/intro">watch the video</a></p>
-
-    -->
+        <contentful-rich-text document="@contentfulModel.Content"></contentful-rich-text>
     </div>
 
     <div id="map_wrapper">
@@ -125,15 +23,16 @@
         <div id="our_voice">
             <a class="twitter-timeline" data-dnt="true" data-chrome="noheader,nofooter" data-limit="4" href="https://twitter.com/FrontlineMap?ref_src=twsrc%5Etfw">Tweets by FrontlineMap</a>
         </div>
-
         <!---<h2>Your Needs</h2>-->
         <div id="needs">
         </div>
 
+        @*
         <div id="charts">
-            <canvas id="chart_results"></canvas> @*width="500"*@
+            <canvas id="chart_results"></canvas> @{ //width="500"}@
             <canvas id="chart_contactable"></canvas>
         </div>
+        *@
     </div>
 
 </main>
@@ -157,6 +56,7 @@
     <script src="/data.js"></script>
     <script src="/app.js"></script>
 
+    @*
     <script>
 
         (function() {
@@ -236,4 +136,5 @@
 
 
     </script>
+    *@
 }

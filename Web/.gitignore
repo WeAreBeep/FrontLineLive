@@ -1,0 +1,5 @@
+# Ignore output of pre-build target
+wwwroot/css/**/*.css
+
+# Development settings
+appsettings.Development.json

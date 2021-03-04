@@ -135,3 +135,7 @@ declare namespace Noty {
             onTemplate?: () => void
     }
 }
+ interface Window {
+    appConfig: AppConfig;
+ }
+ 

@@ -86,7 +86,7 @@ namespace Web.Db
 		public void Modify(NeedsViewModel s)
 		{
 			PublishAnonymously = s.PublishAnonymously;
-			ContactName = s.ContactName;
+			ContactName = s.ContactName ?? "";
 			JobTitle = s.JobTitle;
 			Email = s.Email;
 			PhoneNumber = s.PhoneNumber;

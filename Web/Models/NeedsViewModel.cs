@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,25 +15,29 @@ namespace Web.Models
 	{
 		public long Id { get; set; }
 
-		[Display(Name = "Publish Anonymously", Description = "Tick if you don't want your name to be public")]
+		[Display(Name = "Publish Anonymously", Description = "Check this if you do not wish your name to be published on the Frontline Map")]
 		public bool PublishAnonymously { get; set; }
 
-		[Display(Name = "Your Name", Description = "If you tick 'Publish Anonymously' this will not be published on the website nor shared outside the Frontline team"),
-		Required(ErrorMessage = Settings.ValMsgs.Required),
-		StringLength(200, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
+		[Display(
+			Name = "Your Name",
+			Description = "If you tick 'Publish Anonymously' this will not be published on the website nor shared outside the Frontline team. If you don't leave your name, we will delivery PPE package to the department you entered."
+		),
+		StringLength(200)]
 		public string ContactName { get; set; }
 
-		[Display(Name = "Email", Description = "Will only be used by the frontline Team to contact you about your PPE Need, will not be shared outside the Frontline team"),
+		[Display(Name = "Email", Description = "We need to contact you to confirm information and successful delivery."),
 		Required(ErrorMessage = Settings.ValMsgs.Required),
 		StringLength(100, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum),
 		EmailAddress(ErrorMessage = Settings.ValMsgs.Email)]
 		public string Email { get; set; }
 
-		[Display(Name = "Phone number", Description = ""),
+		[Display(Name = "Phone number", Description = "Our delivery service need this for successful delivery. It will be deleted when your needs are met."),
+		Required(ErrorMessage = Settings.ValMsgs.Required),
 		StringLength(100, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string PhoneNumber { get; set; }
 
 		[Display(Name = "Organisation Name", Description = "Organisation or Company name"),
+		Required(ErrorMessage = Settings.ValMsgs.Required),
 		StringLength(200, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string OrganisationName { get; set; }
 
@@ -50,11 +55,13 @@ namespace Web.Models
 		StringLength(8, MinimumLength = 6, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string Postcode { get; set; }
 
-		[Display(Name = "Job Title", Description = "Will be used for aggregation of data (for our reports) this will not be published on the website"),
+		[Display(Name = "Job Title", Description = "This will not be published on the site. It will be used for anonymous data reporting."),
+		Required(ErrorMessage = Settings.ValMsgs.Required),
 		StringLength(200, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string JobTitle { get; set; }
 
-		[Display(Name = "Department", Description = "Will be used for aggregation of data (for our reports) this will not be published on the website"),
+		[Display(Name = "Department", Description = "This will not be published on the site. It will be used for anonymous data reporting."),
+		Required(ErrorMessage = Settings.ValMsgs.Required),
 		StringLength(200, MinimumLength = 3, ErrorMessage = Settings.ValMsgs.StringLengthWithMinimum)]
 		public string Department { get; set; }
 
@@ -72,6 +79,10 @@ namespace Web.Models
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
 			List<ValidationResult> respVal = new List<ValidationResult>();
+			if (!String.IsNullOrEmpty(ContactName) && ContactName.Length > 0 && ContactName.Length < 3)
+			{
+				respVal.Add(new ValidationResult(Settings.ValMsgs.StringLengthWithMinimum));
+			}
 			if(PpeTypes.Count(pt => pt.Selected) == 0)
 			{
 				respVal.Add(new ValidationResult("Please choose at least one <b>PPE Type</b> which you need", new List<string> { "PpeTypes" }));

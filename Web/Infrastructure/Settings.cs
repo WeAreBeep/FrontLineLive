@@ -13,6 +13,7 @@ namespace Web.Infrastructure
         public static string NeedsImportUrl = "http://x.api/export/needs/";
         public static string SuppliesImportUrl = "http://x.api/export/supplies/";
 		public static string LayoutFrontEndModeEditKey => $"{nameof(LayoutFrontEndModeEditKey)}";
+        public static string LayoutInvertedKey => $"{nameof(LayoutInvertedKey)}";
 		public static string DataTablesTimestampFormat => "yyyy-MM-dd HH:mm:ss";
 		public static string DefaultEmail => "noone@nowhere.com";
 		public static string GetTwitterUrl(long? tweetId) => tweetId != null ? $"https://twitter.com/i/web/status/{tweetId}" : "";

@@ -14,7 +14,7 @@
     <script src="https://kit.fontawesome.com/e10dd0382c.js" crossorigin="anonymous"></script>
     <script src="/polyfills.js"></script>
     @*less compiled on server = PRODUCTION *@
-    <link href='/style.css' rel='stylesheet' />
+    <link href='/css/style.css' rel='stylesheet' />
     @*less with js for easy DEBUG *@
     @*<link rel="stylesheet/less" type="text/css" href="/style.less" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.11.1/less.min.js"></script>*@
@@ -33,6 +33,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-170651121-1');
     </script>
+    @await Html.PartialAsync("_AppConfig")
 </head>
 <body class="@Helper.GetBodyClass(ViewData)">
 <header>

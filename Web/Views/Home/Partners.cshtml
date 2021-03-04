@@ -1,0 +1,21 @@
+@{
+    var contentfulModel = ViewData["contentful"] as Web.Models.Contentful.PartnersPageViewModel;
+    ViewData["inverted"] = true;
+}
+@section header{
+   @await Html.PartialAsync("_Header")
+}
+
+<main>
+    <div id="partners" class="text_section">
+        <contentful-rich-text document="@contentfulModel.Content"></contentful-rich-text>
+        <div class="partners">
+            @foreach (var partner in contentfulModel.Partners)
+            {
+                <a href="@partner.WebsiteUrl" target="_blank" title="@partner.Logo.Title" class="partner">
+                    <contentful-image asset="@partner.Logo" class="partnerLogo"/>
+                </a>
+            }
+        </div>
+    </div>
+</main>

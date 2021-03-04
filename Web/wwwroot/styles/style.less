@@ -1,12 +1,26 @@
-@import "./styles/variables.less";
-@import "./styles/fa-icons.less";
-@import "./styles/leaflet.less";
-@import "./styles/validation.less";
-@import "./styles/number-picker.less";
+@import "./variables.less";
+@import "./fa-icons.less";
+@import "./leaflet.less";
+@import "./validation.less";
+@import "./number-picker.less";
 
 /* RESET */
 html {
     box-sizing: border-box;
+}
+.contentfulReset() {
+    ul li > p {
+        // Contentful will wrap content of list item by a p tag.
+        // We reset the style of p tag here
+        margin-block-start: 0;
+        margin-block-end: 0;
+        font-size: unset;
+    }
+
+    div.contentfulStyledList p {
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
 }
 
 *, *:before, *:after {
@@ -57,8 +71,12 @@ html {
 
 .major_title,
 .minor_title {
-    color: @color_font;
-    background-color: @color_background;
+    color: @color_font_title;
+}
+
+.inverted .major_title,
+.inverted .minor_title {
+    color: @color_font_title_inverted;
 }
 
 .major_title {
@@ -89,7 +107,6 @@ html {
 
 /* BASE STYLES */
 
-
 html, body {
     overflow-x: hidden; /* attempt to stop mobiles misbehaving on index (adding unwanted horizontal scroll) */
 }
@@ -100,6 +117,13 @@ body {
     flex-flow: column;
     min-height: 100vh;
     width: 100vw;
+    background: @color_background;
+    color: @color_font;
+    font-size: @base_font_size;
+}
+body.inverted {
+    background: @color_background_inverted;
+    color: @color_font_inverted;
 }
 
 .fa-inverse {
@@ -320,6 +344,14 @@ a {
     ul {
         font-size: 1.25em;
     }
+
+    .contentfulReset;
+}
+
+.inverted .text_section {
+    h1, h2 {
+        color: @color_font_title_inverted;
+    }
 }
 
 #map_wrapper {
@@ -393,6 +425,24 @@ footer {
     }
 }
 
+/* PARTNERS PAGE */
+div#partners {
+    .partners {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    .partnerLogo {
+        width: 100%;
+    }
+    .partner {
+        margin: 1rem;
+        display: block;
+        max-width: 160px;
+    }
+}
+
 /*SUPPLIERS */
 
 #suppliers_title {
@@ -443,6 +493,8 @@ footer {
     @fixed_height: @header_height + @footer_height;
 
     @v_scroll_buffer: 20px; //TODO:applies to title padding right for x_wide only?
+
+    @vertical_scroll_offset: calc(@header_height + @v_scroll_buffer);
 
     @map_width: calc(100vw - @left_width - @v_scroll_buffer);
     @map_height: calc(100vh - @fixed_height);
@@ -504,6 +556,18 @@ footer {
 
         h1 {
             margin-top: 5rem;
+        }
+
+        // NOTE: We use CSS pseudo element to display visible content at correct position
+        //       when clicking link to fragment
+        h2[id]::before,
+        h3[id]::before {
+            content: " ";
+            height: @vertical_scroll_offset;
+            position: relative;
+            width: 0;
+            display: block;
+            margin-top: calc(-1 * @vertical_scroll_offset);
         }
     }
 
@@ -620,6 +684,14 @@ footer {
         padding: 1rem 2rem;
     }
 
+    div#partners.text_section {
+        padding: 1rem;
+
+        h1, h2, h3 {
+            margin: auto;
+        }
+    }
+
     #suppliers_wrap {
         height: calc(100vh - @footer_height - @header_height);
         position: fixed;
@@ -656,6 +728,13 @@ footer {
         h3 {
             margin-top: 3rem;
             margin-bottom: 0;
+        }
+    }
+    div#partners.text_section {
+        padding: 1rem;
+
+        h1, h2, h3 {
+            margin: auto;
         }
     }
 }
