@@ -19,5 +19,7 @@
 	TellUsMore nvarchar(max),
 	Latitude decimal(9, 6),
 	Longitude decimal(9, 6),
+	AddressLineOne nvarchar(max) NOT NULL default '',
+	AddressLineTwo nvarchar(max) NOT NULL default '',
 	CONSTRAINT PK_Needs PRIMARY KEY CLUSTERED (Id),
 )
